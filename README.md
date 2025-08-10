@@ -1,141 +1,128 @@
-# Secure and Automated Web App Deployment on Azure with Terraform and GitHub Actions
-**Status**: Completed | **Cloud**: Microsoft Azure | **IaC**: Terraform | **CI/CD**: GitHub Actions
+# 🚀 Azure Secure CI/CD Web App Deployment with Terraform & GitHub Actions
 
-This project demonstrates a best-practice approach to deploying a web application on Microsoft Azure in a secure, automated, and repeatable manner. The entire infrastructure is defined as code using Terraform, and the application deployment is fully automated through a CI/CD pipeline built with GitHub Actions.
+**Status:** ✅ Completed  
+**Cloud:** Microsoft Azure  
+**IaC:** Terraform  
+**CI/CD:** GitHub Actions
 
-1. Project Objectives
-The primary goals of this project were to:
+---
 
-Provision a complete cloud infrastructure on Azure using Infrastructure as Code (IaC) principles with Terraform.
+## 📚 Project Overview
 
-Implement a secure network architecture that isolates the application from the public internet, using a Virtual Network and an Application Gateway with a Web Application Firewall (WAF).
+This project demonstrates a best-practice, security-focused approach to deploying a Python (Flask) web application on Microsoft Azure using Infrastructure as Code (Terraform) and automated deployment with GitHub Actions. The entire workflow is secure, automated, and repeatable—ideal for Cloud, DevOps, or Security Engineering roles.
 
-Build a fully automated CI/CD pipeline with GitHub Actions to deploy the application whenever new code is pushed to the main branch.
+---
 
-Gain hands-on experience with core Azure services, including App Service, Application Gateway, and Virtual Network.
+## 🎯 Objectives
 
-Demonstrate practical skills relevant for Cloud, DevOps, and Security Engineer roles.
+- **Provision** complete Azure infrastructure via Terraform (IaC principles).
+- **Implement** a secure network architecture: isolate the app with Virtual Network & Application Gateway (with WAF).
+- **Automate** deployment with a robust GitHub Actions CI/CD pipeline, triggered on every push to `main`.
+- **Gain hands-on** with key Azure services: App Service, Application Gateway, Virtual Network.
+- **Demonstrate** modern Cloud, DevOps & Security best practices.
 
-2. Architecture
-The system is designed with a security-first mindset, ensuring that the application is not directly exposed to the internet.
+---
 
-Traffic Flow Diagram
-This diagram illustrates how user traffic reaches the application securely.
+## 🏗️ Architecture
 
-Đoạn mã
+### 🔒 Security-First Network Design
 
+```mermaid
 graph TD
-    A[User on the Internet] --> B{Public IP Address};
-    B --> C[Azure Application Gateway <br> (WAF V2 Enabled)];
-    subgraph "Virtual Network (vnet-secureapp) "
-        C --> D[appgateway_subnet <br> 10.0.1.0/24];
-        D --> E[appservice_subnet <br> 10.0.2.0/24];
+    A[User on the Internet] --> B[Public IP Address]
+    B --> C[Azure Application Gateway WAF V2 Enabled]
+    subgraph Virtual_Network_vnet_secureapp
+        C --> D[appgateway_subnet 10.0.1.0/24]
+        D --> E[appservice_subnet 10.0.2.0/24]
     end
-    E --> F[App Service <br> app-secureapp-immune-goblin ];
+    E --> F[App Service app-secureapp-immune-goblin]
 
     style F fill:#cce5ff,stroke:#333,stroke-width:2px
     style C fill:#d5e8d4,stroke:#333,stroke-width:2px
-All incoming traffic first hits the Application Gateway.
+```
 
-The Web Application Firewall (WAF) inspects the traffic for common threats (like SQL Injection, XSS) and blocks malicious requests.
+- **All traffic** enters via Application Gateway (WAF).
+- **WAF** inspects traffic for threats (SQL Injection, XSS, etc.) and blocks malicious requests.
+- **App Service** is in an isolated subnet with **no public IP**; only reachable through the Gateway.
 
-Only legitimate traffic is forwarded to the App Service, which runs in an isolated subnet and has no public internet access.
+---
 
-CI/CD Workflow Diagram
-This diagram shows the automated deployment process.
+### 🔄 CI/CD Workflow
 
-Đoạn mã
-
+```mermaid
 graph TD
-    A[Developer] -- git push --> B[GitHub Repository <br> (main branch)];
-    B -- Triggers --> C{GitHub Actions Workflow };
-    C -- 1. Authenticates via Service Principal --> D[Azure API];
-    C -- 2. Deploys Code --> E[App Service <br> app-secureapp-immune-goblin ];
+    A[Developer] -->|git push| B[GitHub Repo main branch]
+    B --> C[GitHub Actions Workflow]
+    C -->|1. Auth via Service Principal| D[Azure API]
+    C -->|2. Deploy Code| E[Azure App Service]
 
     style C fill:#fff2cc,stroke:#333,stroke-width:2px
-A 
+```
 
-git push to the main branch automatically triggers the GitHub Actions workflow.
+- **git push** to `main` triggers the workflow.
+- Workflow **authenticates securely** to Azure using Service Principal credentials.
+- Deploys **latest code** to App Service automatically.
 
-The workflow securely logs into Azure using pre-configured credentials (a Service Principal).
+---
 
-The latest version of the application code is then deployed directly to the Azure App Service.
+## 🛠️ Tech Stack
 
-3. Tech Stack
-Cloud Provider: Microsoft Azure
+| Layer               | Technology                         |
+| ------------------- | ---------------------------------- |
+| **Cloud**           | Azure                              |
+| **IaC**             | Terraform                          |
+| **CI/CD**           | GitHub Actions                     |
+| **App Hosting**     | Azure App Service (Python/Flask)   |
+| **Security**        | Application Gateway (WAF V2)       |
+| **Networking**      | Virtual Network, Subnets           |
+| **Entry Point**     | Azure Public IP                    |
+| **Subscription**    | Azure for Students                 |
 
+---
 
-Infrastructure as Code (IaC): Terraform 
+## 💡 Key Skills Demonstrated
 
+### Cloud Engineering & DevOps
 
+- **Terraform IaC:** Full infra provisioning & management.
+- **CI/CD Automation:** GitHub Actions for zero-touch deployments.
+- **Azure Resource Management:** Deploy/configure PaaS resources.
+- **Cost Management:** Monitor/analyze cloud spending.
 
+### Cloud Security & Networking
 
+- **Secure Network Design:** Isolated VNets & subnets.
+- **WAF:** Application Gateway with OWASP rules.
+- **IAM:** Scoped Service Principal (least privilege) for GitHub Actions.
 
-CI/CD: GitHub Actions 
+### Version Control & Troubleshooting
 
-Key Azure Services:
+- **Git & GitHub:** End-to-end VCS workflows.
+- **Advanced Problem Solving:** 
+  - Git conflicts & history rewrites (reset, pull, rebase).
+  - Terraform state/provider issues.
+  - File size limits & dependency management.
 
+---
 
-Azure App Service: To host the Python web application.
+## 📂 Repository Structure
 
+```
+.
+├── .github/workflows/         # GitHub Actions CI/CD pipelines
+├── terraform/                 # All Terraform IaC modules & configs
+├── app/                       # Python Flask web application code
+├── README.md                  # This documentation
+└── ...
+```
 
+---
 
+## 📎 Notes
 
+- **For learning, reference, or direct use in your own secure Azure deployments.**
+- **Contact:** [grapitycreation on GitHub](https://github.com/grapitycreation)
 
+---
 
-Azure Application Gateway (WAF V2): To act as a secure reverse proxy and web application firewall.
-
-
-
-
-
-
-Azure Virtual Network (VNet): To provide network isolation.
-
-
-
-
-
-
-Azure Public IP: The single entry point for the Application Gateway.
-
-
-Azure for Students Subscription: Used for this project.
-
-Application: Python (Flask)
-
-4. Skills Demonstrated
-This project showcases a comprehensive set of modern cloud engineering skills:
-
-Cloud Engineering & DevOps
-
-Infrastructure as Code (IaC): Proficient in using Terraform to define, provision, and manage the entire cloud infrastructure, ensuring consistency and repeatability.
-
-
-
-
-
-CI/CD Pipeline Automation: Designed and implemented a complete CI/CD workflow from scratch using GitHub Actions to automate application deployments, reducing manual errors and increasing deployment speed.
-
-Azure Resource Management: Hands-on experience deploying and configuring a wide range of Azure PaaS services.
-
-
-Cost Management: Monitored and analyzed cloud spending using Azure Cost Management tools to understand the financial impact of architectural decisions.
-
-Cloud Security & Networking
-Secure Network Design: Implemented a secure network topology with VNets and Subnets, isolating the application backend from direct public access.
-
-Web Application Firewall (WAF): Configured and deployed an Application Gateway with OWASP rules to protect the application against common web vulnerabilities.
-
-Identity and Access Management (IAM): Created and configured a scoped Service Principal for secure, automated authentication between GitHub Actions and Azure, adhering to the principle of least privilege.
-
-Version Control & Troubleshooting
-Git & GitHub: Utilized Git for version control throughout the project lifecycle.
-
-Advanced Problem-Solving: Successfully diagnosed and resolved a series of complex, real-world issues, including:
-
-Git merge conflicts and history rewrites (reset, pull, rebase concepts).
-
-Terraform state and provider issues (connection reset, MissingSubscriptionRegistration).
-
-File size limitations and dependency management (.gitignore, .terraform directory).
+> _Designed for students and professionals aiming for excellence in secure, automated cloud deployments!_
