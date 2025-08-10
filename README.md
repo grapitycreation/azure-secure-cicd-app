@@ -176,6 +176,11 @@ The final result is a live web application, served securely through the Applicat
 Project lifecycle was completed by running terraform destroy to cleanly remove all created resources from Azure.
 ![Teardown](https://github.com/grapitycreation/azure-secure-cicd-app/blob/main/images/15.jpg)
 
+## Demo
+Youtube: https://youtu.be/D0LehPJVC98
+
+Google Drive: https://drive.google.com/file/d/1tZJMF5KWESNNB_rvTf-L6Y9qaAaGnG5Q/view?usp=sharing
+
 ## 📎 Notes
 
 - **For learning, reference, or direct use in your own secure Azure deployments.**
