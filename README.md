@@ -111,7 +111,7 @@ graph TD
 .
 ├── .github/workflows/         # GitHub Actions CI/CD pipelines
 ├── terraform/                 # All Terraform IaC modules & configs
-├── app/                       # Python Flask web application code
+├── app.py                       # Python Flask web application code
 ├── README.md                  # This documentation
 └── ...
 ```
