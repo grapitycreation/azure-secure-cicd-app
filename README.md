@@ -1,4 +1,4 @@
-![6](https://github.com/user-attachments/assets/392bf62b-ec08-49e8-8581-0c7958a257c0)# 🚀 Azure Secure CI/CD Web App Deployment with Terraform & GitHub Actions
+🚀 Azure Secure CI/CD Web App Deployment with Terraform & GitHub Actions
 
 **Status:** ✅ Completed  
 **Cloud:** Microsoft Azure  
