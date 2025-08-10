@@ -1,0 +1,51 @@
+name: Deploy Python App to Azure App Service
+
+on:
+  # Kích hoạt workflow mỗi khi có push lên nhánh main
+  push:
+    branches:
+      - main
+  # Cho phép chạy workflow thủ công từ giao diện GitHub
+  workflow_dispatch:
+
+# Cấu hình biến môi trường
+env:
+  AZURE_WEBAPP_NAME: 'app-secureapp-immune-goblin' # <<-- TÊN APP SERVICE CỦA BẠN
+  AZURE_WEBAPP_PACKAGE_PATH: '.' # Đường dẫn đến code, '.' là thư mục gốc
+  PYTHON_VERSION: '3.9' # Phiên bản Python
+
+jobs:
+  build-and-deploy:
+    name: Build and Deploy
+    runs-on: ubuntu-latest # Chạy trên máy ảo Ubuntu
+
+    steps:
+    # Step 1: Lấy mã nguồn từ repo về
+    - name: 'Checkout repo'
+      uses: actions/checkout@v3
+
+    # Step 2: Đăng nhập vào Azure
+    - name: 'Login to Azure'
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }} # Sử dụng secret đã tạo
+
+    # Step 3: Cài đặt phiên bản Python
+    - name: 'Set up Python version'
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ env.PYTHON_VERSION }}
+
+    # Step 4: Tạo môi trường ảo và cài đặt thư viện
+    - name: 'Create and start virtual environment'
+      run: |
+        python -m venv venv
+        source venv/bin/activate
+        pip install -r requirements.txt
+
+    # Step 5: Triển khai lên Azure App Service
+    - name: 'Deploy to App Service'
+      uses: azure/webapps-deploy@v2
+      with:
+        app-name: ${{ env.AZURE_WEBAPP_NAME }}
+        package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
