@@ -1,4 +1,4 @@
-#🚀 Azure Secure CI/CD Web App Deployment with Terraform & GitHub Actions
+# 🚀 Azure Secure CI/CD Web App Deployment with Terraform & GitHub Actions
 
 **Status:** ✅ Completed  
 **Cloud:** Microsoft Azure  
