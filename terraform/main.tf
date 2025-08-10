@@ -58,14 +58,14 @@ resource "azurerm_public_ip" "appgateway_pip" {
   location = azurerm_resource_group.rg.location
   allocation_method = "Static"
   sku = "Standard"
-  zones = 1
+  zones = ["1"]
 }
 
 # 2. Tạo Application Gateway
 resource "azurerm_application_gateway" "app_gateway" {
   name = "appgw-secureapp"
-  resource_group_name = azurerm_resource_group.rg.name
-  location = azurerm_resource_group.rg.location
+  resource_group_name = var.resource_group_name
+  location = var.location
 
   sku {
     name = "WAF_v2"
@@ -90,7 +90,7 @@ resource "azurerm_application_gateway" "app_gateway" {
 
   # B. Cấu hình Subnet cho Gateway
   gateway_ip_configuration {
-    name "gateway-ip-config"
+    name = "gateway-ip-config"
     subnet_id = azurerm_subnet.appgateway_subnet.id
   }
 
@@ -99,9 +99,10 @@ resource "azurerm_application_gateway" "app_gateway" {
   # C. Backend Pool (Nơi Gate way sẽ đẩy traffic tới)
   backend_address_pool {
     name = "backend-pool-appservice"
+    fqdns = [azurerm_linux_web_app.web_app.default_hostname]
   }
 
-  # D. HTTP Listener
+  # HTTP Listener
   # Lắng nghe các yêu cầu HTTP trên cổng 80
   frontend_port {
     name = "http-port"
@@ -109,7 +110,48 @@ resource "azurerm_application_gateway" "app_gateway" {
   }
 
   http_listener {
-    name = 
+    name = "http-listener"
+    frontend_ip_configuration_name = "frontend-ip-config"
+    frontend_port_name = "http-port"
+    protocol = "Http"
+  }
+
+  # D. Health Probe
+  # Kiểm tra sức khỏe của App Service
+  probe {
+    name = "health-probe-appservice"
+    protocol = "Http"
+    host = azurerm_linux_web_app.web_app.default_hostname
+    path = "/"
+    interval = 30
+    timeout = 20
+    unhealthy_threshold = 3
+  }
+
+  # E. Request Routing Rule
+  request_routing_rule {
+    name = "routing-rule-http"
+    rule_type = "Basic"
+    priority = 100
+    http_listener_name = "http-listener"
+    backend_address_pool_name = "backend-pool-appservice"
+    backend_http_settings_name = "http-settings"
+  }
+
+  # Cài đặt cho các kết nối từ Gateway tới Backend
+  backend_http_settings {
+    name = "http-settings"
+    cookie_based_affinity = "Disabled"
+    port = 80
+    protocol = "Http"
+    request_timeout = 20
+    probe_name = "health-probe-appservice"
+    host_name = azurerm_linux_web_app.web_app.default_hostname
+  }
+
+  tags = {
+    project = "Secure Web App CI/CD"
+    owner = "Tran Huu Hieu"
   }
 
 }
