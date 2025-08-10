@@ -51,10 +51,10 @@ graph TD
 
 ```mermaid
 graph TD
-    A[Developer] -->|git push| B[GitHub Repo main branch]
+    A[Developer] --> B[GitHub Repo main branch]
     B --> C[GitHub Actions Workflow]
-    C -->|1. Auth via Service Principal| D[Azure API]
-    C -->|2. Deploy Code| E[Azure App Service]
+    C --> D[Azure API]
+    C --> E[Azure App Service]
 
     style C fill:#fff2cc,stroke:#333,stroke-width:2px
 ```
