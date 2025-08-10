@@ -177,9 +177,9 @@ Project lifecycle was completed by running terraform destroy to cleanly remove a
 ![Teardown](https://github.com/grapitycreation/azure-secure-cicd-app/blob/main/images/15.jpg)
 
 ## Demo
-Youtube: https://youtu.be/D0LehPJVC98
+👉 [Xem demo trên YouTube](https://youtu.be/D0LehPJVC98)
 
-Google Drive: https://drive.google.com/file/d/1tZJMF5KWESNNB_rvTf-L6Y9qaAaGnG5Q/view?usp=sharing
+👉 [Xem demo trên Google Drive](https://drive.google.com/file/d/1tZJMF5KWESNNB_rvTf-L6Y9qaAaGnG5Q/view?usp=sharing)
 
 ## 📎 Notes
 
