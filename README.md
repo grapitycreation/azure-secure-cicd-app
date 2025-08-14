@@ -1,4 +1,4 @@
-🚀 Azure Secure CI/CD Web App Deployment with Terraform & GitHub Actions
+# 🚀 Azure Secure CI/CD Web App Deployment with Terraform & GitHub Actions
 
 **Status:** ✅ Completed  
 **Cloud:** Microsoft Azure  
@@ -51,10 +51,10 @@ graph TD
 
 ```mermaid
 graph TD
-    A[Developer] -->|git push| B[GitHub Repo main branch]
+    A[Developer] --> B[GitHub Repo main branch]
     B --> C[GitHub Actions Workflow]
-    C -->|1. Auth via Service Principal| D[Azure API]
-    C -->|2. Deploy Code| E[Azure App Service]
+    C --> D[Azure API]
+    C --> E[Azure App Service]
 
     style C fill:#fff2cc,stroke:#333,stroke-width:2px
 ```
@@ -175,6 +175,11 @@ On pushing the workflow file to main, the GitHub Actions pipeline was triggered,
 The final result is a live web application, served securely through the Application Gateway, and deployed automatically via a CI/CD pipeline.
 Project lifecycle was completed by running terraform destroy to cleanly remove all created resources from Azure.
 ![Teardown](https://github.com/grapitycreation/azure-secure-cicd-app/blob/main/images/15.jpg)
+
+## Demo
+👉 [Xem demo trên YouTube](https://youtu.be/D0LehPJVC98)
+
+👉 [Xem demo trên Google Drive](https://drive.google.com/file/d/1tZJMF5KWESNNB_rvTf-L6Y9qaAaGnG5Q/view?usp=sharing)
 
 ## 📎 Notes
 
