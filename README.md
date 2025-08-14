@@ -181,6 +181,27 @@ Project lifecycle was completed by running terraform destroy to cleanly remove a
 
 👉 [Xem demo trên Google Drive](https://drive.google.com/file/d/1tZJMF5KWESNNB_rvTf-L6Y9qaAaGnG5Q/view?usp=sharing)
 
+## Cost Analysis & Management
+An important part of working on the cloud is the ability to manage and optimize costs (FinOps). This project's costs were tracked using the Azure Cost Management tool to understand the financial impact of the chosen architecture. The total cost for running the project infrastructure for approximately one week was $18.03.
+
+![image](https://github.com/grapitycreation/azure-secure-cicd-app/blob/main/costanalysis_charts.png)
+
+Cost Breakdown by Service
+Dịch vụ (Service)	Chi phí (Cost)	Tỷ trọng (Percentage)
+Application Gateway	$17.87	~99.1%
+Virtual Network	$0.12	~0.7%
+Azure App Service	$0.04	~0.2%
+Bandwidth & Storage	< $0.01	~0.0%
+Tổng cộng (Total)	$18.03	100%
+
+Xuất sang Trang tính
+Analysis & Insights
+Primary Cost Driver: The analysis clearly shows that the Application Gateway (WAF_v2 SKU) is the main cost component, accounting for over 99% of the total project cost. This is expected, as it is a powerful, managed service with high-availability and security features, whose cost is calculated based on fixed hourly operation plus data processing volume. This highlights that in a production environment, right-sizing the Application Gateway capacity is the most critical decision for cost optimization.
+
+Cost-Effectiveness of PaaS & Networking: The costs for Azure App Service (B1 tier) and the Virtual Network are extremely low, making up less than 1% of the total cost. This proves that leveraging Azure's PaaS and core networking services is highly cost-effective for hosting small to medium-sized applications securely.
+
+Absolute Cost Control with IaC: The entire infrastructure was provisioned and de-provisioned using single Terraform commands (terraform apply and terraform destroy). This IaC approach ensures that no resources are left running accidentally after the project is complete, providing absolute control over spending and preventing unexpected bills.
+
 ## 📎 Notes
 
 - **For learning, reference, or direct use in your own secure Azure deployments.**
